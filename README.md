@@ -1,4 +1,4 @@
-# docker-images
+# dockerfile-hub
 
-This is dockerfile for building docker images.
-There will be various libraries and packages
+This is a personal dockerfile hub for building docker images.
+There will be various libraries and packages available.
