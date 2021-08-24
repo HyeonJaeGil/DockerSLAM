@@ -15,13 +15,14 @@ RUN apt update && apt install -y \
 WORKDIR /root/libraries/pangolin
 RUN git clone https://github.com/stevenlovegrove/Pangolin.git Pangolin
 WORKDIR Pangolin/build
-RUN cmake .. && make -j{CORE}
+RUN cmake .. && make -j${CORE}
 
 # Eigen3
 WORKDIR /root/Libraries/Eigen3
-RUN git clone -b 3.2 https://gitlab.com/libeigen/eigen.git eigen
+RUN git clone -b 3.3 https://gitlab.com/libeigen/eigen.git eigen
 WORKDIR eigen/build
-RUN cmake .. && make -j{CORE}
+RUN cmake .. && make -j${CORE} && make install
+
 
 # Orb-slam2
 RUN apt update && apt install -y \
@@ -33,7 +34,7 @@ RUN apt update && apt install -y \
 	libqglviewer-dev-qt5
 
 WORKDIR /root/ORB_SLAM2
-RUN git clone https://github.com/HyeonJaeGil/ORB_SLAM2_review.git ORB_SLAM2  
+RUN git clone https://github.com/HyeonJaeGil/ORB_SLAM2.git ORB_SLAM2  
 WORKDIR ORB_SLAM2
 RUN chmod +x build.sh && ./build.sh
 

@@ -8,5 +8,5 @@ docker run -it \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
     --volume="/home/hj/Dropbox/dataset:/root/dataset" \
-    hyeonjaegil/rtabmap-ros-nvidia \
+    hyeonjaegil/rtabmap-ros:nvidia \
     bash
