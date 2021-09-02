@@ -24,3 +24,10 @@ RUN git clone https://github.com/borglab/gtsam.git gtsam
 WORKDIR /root/Libraries/gtsam/build
 RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DGTSAM_USE_SYSTEM_EIGEN=ON ..
 RUN make -j4 && make install
+
+#PCL
+WORKDIR /root/Libraries/PCL
+RUN wget https://github.com/PointCloudLibrary/pcl/archive/pcl-1.8.1.tar.gz && tar zvfx pcl-1.8.1.tar.gz
+WORKDIR /root/Libraries/PCL/pcl-pcl-1.8.1/build
+RUN cmake .. && make -j4  && make install
+RUN apt install ros-melodic-pcl-conversions ros-melodic-pcl-ros
