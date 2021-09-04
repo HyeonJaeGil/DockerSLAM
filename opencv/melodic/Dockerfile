@@ -60,7 +60,8 @@ RUN git clone https://github.com/ros-perception/vision_opencv.git -b melodic && 
 	git clone https://github.com/ros-perception/image_transport_plugins.git
 
 WORKDIR /root/catkin_ws
-# RUN catkin build
-RUN echo "catkin build first, and free to use any ros packages:)"
+RUN catkin config \
+      --extend /opt/ros/melodic && \
+    catkin build 
 RUN echo "Installation finished!"	
 
