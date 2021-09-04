@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build --force-rm -f Dockerfile -t hyeonjaegil/ssl:base .
+docker build --force-rm -f Dockerfile -t hyeonjaegil/ssl-slam:base .
