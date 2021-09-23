@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-base:r32.3.1
+FROM nvcr.io/nvidia/l4t-base:r32.4.4
 
 # add new sudo user
 # ENV USERNAME melodic
