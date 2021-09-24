@@ -13,6 +13,17 @@ docker run -it \
     --volume=$XSOCK:$XSOCK:rw \
     --env="XAUTHORITY=${XAUTH}" \
     --volume="$XAUTH:$XAUTH" \
+    --volume=/usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra \
+    --volume=/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/lib/aarch64-linux-gnu/tegra-egl \
     --runtime=nvidia \
-    hyeonjaegil/xavier:opencv3.4 \
+    --net=host \
+    --env=TERM=xterm-256color \
+    jetson/opencv:3.4 \
     bash
+
+    # hyeonjaegil/xavier:opencv3.4 \
+        #    --volume=/usr/lib/aarch64-linux-gnu/tegra:/usr/lib/aarch64-linux-gnu/tegra \
+        #    --volume=/usr/lib/aarch64-linux-gnu/tegra-egl:/usr/lib/aarch64-linux-gnu/tegra-egl \
+        #    --volume=/usr/local/cuda:/usr/local/cuda \
+
+        #    --net=host \

@@ -1,4 +1,5 @@
-FROM hyeonjaegil/xavier:opencv3.4
+# FROM hyeonjaegil/xavier:opencv3.4
+FROM jetson/opencv:3.4
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV CORE 7
@@ -73,11 +74,11 @@ RUN catkin config \
       --extend /opt/ros/melodic && \
     catkin build -j${CORE}
 
-RUN cd /usr/lib/aarch64-linux-gnu/ && ln -sf libGL.so.1.0.0 libGL.so
+# RUN cd /usr/lib/aarch64-linux-gnu/ && ln -sf libGL.so.1.0.0 libGL.so
 
-RUN ln -s /usr/lib/aarch64-linux-gnu/libvtkCommonCore-6.2.so /usr/lib/libvtkproj4.so
+# RUN ln -s /usr/lib/aarch64-linux-gnu/libvtkCommonCore-6.2.so /usr/lib/libvtkproj4.so
 
-RUN ln -s /usr/lib/aarch64-linux-gnu/libvtkCommonCore-6.2.so /usr/lib/aarch64-linux-gnu/libvtkproj4-6.2.so.6.2.0
+# RUN ln -s /usr/lib/aarch64-linux-gnu/libvtkCommonCore-6.2.so /usr/lib/aarch64-linux-gnu/libvtkproj4-6.2.so.6.2.0
 
 
 RUN rm -rf /var/lib/apt/lists/*

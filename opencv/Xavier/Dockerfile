@@ -1,4 +1,5 @@
-FROM hyeonjaegil/xavier:melodic
+# FROM hyeonjaegil/xavier:melodic
+FROM jetson/ros:melodic
 
 ARG DEBIAN_FRONTEND=noninteractive
 
