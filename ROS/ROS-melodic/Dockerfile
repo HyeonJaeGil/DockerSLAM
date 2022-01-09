@@ -19,7 +19,9 @@ RUN apt install -y build-essential  \
     ffmpeg  \
     libboost-all-dev \
     net-tools \
-    iputils-ping
+    iputils-ping \
+    libeigen3-dev
+
 
 
 # nvidia-container-runtime
