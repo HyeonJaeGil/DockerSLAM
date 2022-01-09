@@ -22,8 +22,8 @@ WORKDIR /root/Libraries
 RUN wget -O /root/Libraries/gtsam.zip https://github.com/borglab/gtsam/archive/4.0.2.zip
 RUN cd /root/Libraries && unzip gtsam.zip -d /root/Libraries/ && rm gtsam.zip
 WORKDIR /root/Libraries/gtsam-4.0.2/build
-# RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DGTSAM_USE_SYSTEM_EIGEN=ON ..
-RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF ..
+RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DGTSAM_USE_SYSTEM_EIGEN=ON ..
+# RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF ..
 RUN make -j${core} && make install
 
 # #PCL
@@ -36,7 +36,8 @@ RUN make -j${core} && make install
 #ROS workspace
 # RUN apt install -y python-catkin-tools
 WORKDIR /root/catkin_ws/src
-RUN git clone https://github.com/TixiaoShan/LIO-SAM.git
+# RUN git clone https://github.com/TixiaoShan/LIO-SAM.git
+RUN git clone https://github.com/HyeonJaeGil/SC-LIO-SAM.git
 WORKDIR /root/catkin_ws
 RUN . /opt/ros/kinetic/setup.sh && \
     catkin_make

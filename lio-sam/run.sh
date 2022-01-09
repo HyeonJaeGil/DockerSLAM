@@ -7,6 +7,7 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
-    --volume="/home/hj/Dropbox/dataset:/root/dataset" \
-    hyeonjaegil/lio-sam:kinetic \
+    hyeonjaegil/lio-sam:sc \
     bash
+
+    # --volume="/home/hj/Dropbox/dataset:/root/dataset" \
