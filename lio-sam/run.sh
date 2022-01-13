@@ -6,8 +6,10 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --runtime=nvidia \
+    --volume="$HOME/liosam_pcd:/liosam_pcd" \
     hyeonjaegil/lio-sam:sc \
     bash
+
+    # --runtime=nvidia \
 
     # --volume="/home/hj/Dropbox/dataset:/root/dataset" \
