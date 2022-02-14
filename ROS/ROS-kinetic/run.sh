@@ -7,5 +7,6 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
-    hyeonjaegil/ros:kinetic-desktop-full-nvidia \
+    --volume="/media/jay/H_T5:/media/jay/H_T5" \
+    hyeonjaegil/ros:kinetic-desktop-full \
     bash
