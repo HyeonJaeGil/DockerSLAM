@@ -1,6 +1,6 @@
 FROM hyeonjaegil/ros:melodic-desktop-full
 ARG DEBIAN_FRONTEND=noninteractive
-ENV core 8
+ENV core 6
 
 RUN apt update
 
@@ -14,12 +14,12 @@ RUN make -j${core} && make install
 
 
 #ROS workspace
-# RUN apt install -y python-catkin-tools
+RUN apt install -y python-catkin-tools
 WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git
 WORKDIR /root/catkin_ws
 RUN . /opt/ros/melodic/setup.sh && \
-    catkin_make
+    catkin build
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo source /opt/ros/melodic/setup.bash >> /root/.bashrc
 RUN echo source /root/catkin_ws/devel/setup.bash >> /root/.bashrc
