@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 #set env variables
-ENV OPENCV_VERSION 3.4.13
+ENV OPENCV_VERSION 3.4.16
 ENV CORE 8
 
 #core packages for opencv
