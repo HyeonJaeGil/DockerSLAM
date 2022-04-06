@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build  --force-rm -f Dockerfile -t hyeonjaegil/opencv:3.4-ros .
+docker build  --force-rm -f Dockerfile -t hyeonjaegil/opencv3.4:melodic .
