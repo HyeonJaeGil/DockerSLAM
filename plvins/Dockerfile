@@ -16,10 +16,13 @@ RUN make -j${core} && make install
 #ROS workspace
 RUN apt install -y python-catkin-tools
 WORKDIR /root/catkin_ws/src
+RUN echo "change occured in remote."
 RUN git clone https://github.com/HyeonJaeGil/PL-VINS.git -b docker
 WORKDIR /root/catkin_ws
 RUN . /opt/ros/melodic/setup.sh && \
-    catkin build camera_model
+    catkin build plvins_camera_model
+RUN . /opt/ros/melodic/setup.sh && \
+    catkin build plvins_feature_tracker
 RUN . /opt/ros/melodic/setup.sh && \
     catkin build
 RUN rm -rf /var/lib/apt/lists/*
