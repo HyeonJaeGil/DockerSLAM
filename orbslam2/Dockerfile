@@ -3,6 +3,13 @@ FROM hyeonjaegil/opencv:3.4
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CORE 8
 
+# Eigen3
+# WORKDIR /root/Libraries/Eigen3
+# RUN git clone -b 3.3 https://gitlab.com/libeigen/eigen.git eigen
+# WORKDIR eigen/build
+# RUN cmake .. && make -j${CORE} && make install
+RUN apt install -y libeigen3-dev
+
 # Pangolin
 RUN apt update && apt install -y \
 		libgl1-mesa-dev \
@@ -17,12 +24,7 @@ RUN git clone https://github.com/stevenlovegrove/Pangolin.git Pangolin
 WORKDIR Pangolin/build
 RUN cmake .. && make -j${CORE}
 
-# Eigen3
-WORKDIR /root/Libraries/Eigen3
-RUN git clone -b 3.3 https://gitlab.com/libeigen/eigen.git eigen
-WORKDIR eigen/build
-RUN cmake .. && make -j${CORE} && make install
-
+RUN ldconfig
 
 # Orb-slam2
 RUN apt update && apt install -y \
