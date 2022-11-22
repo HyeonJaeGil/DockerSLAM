@@ -1,8 +1,12 @@
 
-FROM hyeonjaegil/opencv:3.4-ros
+FROM hyeonjaegil/melodic:opencv3.4
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CORE 8
+
+RUN apt install -y libeigen3-dev
+WORKDIR /usr/local/include
+RUN ln -sf eigen3/Eigen Eigen && ln -sf eigen3/unsupported unsupported
 
 # Pangolin
 RUN apt update && apt install -y \
@@ -13,18 +17,19 @@ RUN apt update && apt install -y \
 		libdc1394-22-dev libraw1394-dev \		
 		libjpeg-dev libpng-dev libtiff5-dev libopenexr-dev
 
-WORKDIR /root/libraries/pangolin
-RUN git clone https://github.com/stevenlovegrove/Pangolin.git Pangolin
-WORKDIR Pangolin/build
-RUN cmake .. && make -j{CORE}
+WORKDIR /root/libraries
+RUN wget https://github.com/stevenlovegrove/Pangolin/archive/refs/tags/v0.6.tar.gz
+RUN tar -xzf v0.6.tar.gz
+WORKDIR /root/libraries/Pangolin-0.6/build
+RUN cmake .. && make -j${CORE} && make install
+WORKDIR /root/libraries
+RUN rm -r Pangolin-0.6 && rm v0.6.tar.gz
+WORKDIR /root
+RUN rm -r /root/libraries
 
-# Eigen3
-WORKDIR /root/Libraries/Eigen3
-RUN git clone -b 3.2 https://gitlab.com/libeigen/eigen.git eigen
-WORKDIR eigen/build
-RUN cmake .. && make -j{CORE}
+RUN ldconfig
 
-# Orb-slam2
+# orbslam2
 RUN apt update && apt install -y \
 	libboost-all-dev  \
 	apt-utils \
@@ -33,10 +38,23 @@ RUN apt update && apt install -y \
 	qt5-qmake   \
 	libqglviewer-dev-qt5
 
+WORKDIR /root
+RUN git clone https://github.com/HyeonJaeGil/ORB_SLAM2.git ORB_SLAM2  
 WORKDIR /root/ORB_SLAM2
-RUN git clone https://github.com/HyeonJaeGil/ORB_SLAM2_review.git ORB_SLAM2  
-WORKDIR ORB_SLAM2
-RUN chmod +x build.sh && ./build.sh
+RUN chmod +x build.sh && ./build.sh 
+
+# orbslam2-ros
+RUN apt install -y python-catkin-tools
+WORKDIR /root/catkin_ws/src
+RUN git clone https://github.com/HyeonJaeGil/orbslam-ros.git
+WORKDIR /root/catkin_ws
+RUN . /opt/ros/melodic/setup.sh && \
+    catkin build
+RUN rm -rf /var/lib/apt/lists/*
+RUN echo source /opt/ros/melodic/setup.bash >> /root/.bashrc
+RUN echo source /root/catkin_ws/devel/setup.bash >> /root/.bashrc
+
+ENTRYPOINT [ "/bin/bash" ]
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
