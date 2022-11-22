@@ -1,10 +1,8 @@
-docker run -it \
-    --env="DISPLAY=$DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
+docker run --gpus all --rm -it --ipc=host --net=host --privileged \
+    --env="DISPLAY=unix$DISPLAY" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --env="XAUTHORITY=$XAUTH" \
-    --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
-    --volume="/home/hj/Dropbox/dataset:/root/dataset" \
+    --volume="/home/hj/Dropbox/SNU/Lectures/2022-Fall/SLAM101/week10/Data:/root/dataset" \
+    -v /etc/localtime:/etc/localtime:ro \
     hyeonjaegil/dso:base \
-    bash
+    /bin/bash
