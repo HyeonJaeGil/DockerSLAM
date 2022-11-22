@@ -57,13 +57,13 @@ RUN echo "Installation finished!"
 
 # ROS related
 WORKDIR /root/catkin_ws/src
-RUN apt install python-catkin-tools -y
-RUN git clone https://github.com/ros-perception/vision_opencv.git -b melodic && \
+RUN apt install python3-catkin-tools -y
+RUN git clone https://github.com/ros-perception/vision_opencv.git -b noetic && \
 	git clone https://github.com/ros-perception/image_transport_plugins.git
 
 WORKDIR /root/catkin_ws
 RUN catkin config \
-      --extend /opt/ros/melodic && \
+      --extend /opt/ros/noetic && \
     catkin build 
 RUN echo "Installation finished!"	
 
