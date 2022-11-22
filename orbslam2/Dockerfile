@@ -10,6 +10,9 @@ ENV CORE 8
 # RUN cmake .. && make -j${CORE} && make install
 RUN apt install -y libeigen3-dev
 
+WORKDIR /usr/local/include
+RUN ln -sf eigen3/Eigen Eigen && ln -sf eigen3/unsupported unsupported
+
 # Pangolin
 RUN apt update && apt install -y \
 		libgl1-mesa-dev \
@@ -19,10 +22,15 @@ RUN apt update && apt install -y \
 		libdc1394-22-dev libraw1394-dev \		
 		libjpeg-dev libpng-dev libtiff5-dev libopenexr-dev
 
-WORKDIR /root/libraries/pangolin
-RUN git clone https://github.com/stevenlovegrove/Pangolin.git Pangolin
-WORKDIR Pangolin/build
-RUN cmake .. && make -j${CORE}
+WORKDIR /root/libraries
+RUN wget https://github.com/stevenlovegrove/Pangolin/archive/refs/tags/v0.6.tar.gz
+RUN tar -xzf v0.6.tar.gz
+WORKDIR /root/libraries/Pangolin-0.6/build
+RUN cmake .. && make -j${CORE} && make install
+WORKDIR /root/libraries
+RUN rm -r Pangolin-0.6 && rm v0.6.tar.gz
+WORKDIR /root
+RUN rm -r /root/libraries
 
 RUN ldconfig
 
@@ -35,10 +43,11 @@ RUN apt update && apt install -y \
 	qt5-qmake   \
 	libqglviewer-dev-qt5
 
-WORKDIR /root/ORB_SLAM2
+WORKDIR /root
 RUN git clone https://github.com/HyeonJaeGil/ORB_SLAM2.git ORB_SLAM2  
-WORKDIR ORB_SLAM2
-RUN chmod +x build.sh && ./build.sh
+WORKDIR /root/ORB_SLAM2
+RUN chmod +x build.sh && ./build.sh 
+WORKDIR /root/ORB_SLAM2
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
