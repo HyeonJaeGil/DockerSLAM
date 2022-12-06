@@ -25,6 +25,8 @@ WORKDIR /root/Libraries/gtsam-4.0.0-alpha2/build
 # RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DGTSAM_USE_SYSTEM_EIGEN=ON ..
 RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF ..
 RUN make -j${core} && make install
+WORKDIR /root
+RUN rm -r Libraries
 
 # #PCL
 # WORKDIR /root/Libraries/PCL
@@ -36,7 +38,8 @@ RUN make -j${core} && make install
 #ROS workspace
 # RUN apt install -y python-catkin-tools
 WORKDIR /root/catkin_ws/src
-RUN git clone https://github.com/irapkaist/SC-LeGO-LOAM.git
+# RUN git clone https://github.com/irapkaist/SC-LeGO-LOAM.git
+RUN git clone https://github.com/RobustFieldAutonomyLab/LeGO-LOAM.git
 WORKDIR /root/catkin_ws
 RUN . /opt/ros/melodic/setup.sh && \
     catkin_make
