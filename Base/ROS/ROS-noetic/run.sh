@@ -6,10 +6,7 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --volume="$HOME/liosam_pcd:/liosam_pcd" \
-    hyeonjaegil/lio-sam:sc \
+    --runtime=nvidia \
+    --volume="/media/jay/H_T5:/media/jay/H_T5" \
+    hyeonjaegil/ros:melodic-desktop-full \
     bash
-
-    # --runtime=nvidia \
-
-    # --volume="/home/hj/Dropbox/dataset:/root/dataset" \
