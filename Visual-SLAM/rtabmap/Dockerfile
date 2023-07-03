@@ -1,9 +1,28 @@
-FROM hyeonjaegil/opencv:3.4-ros
-ARG DEBIAN_FRONTEND=noninteractive
+FROM osrf/ros:melodic-desktop-full
 
+ARG DEBIAN_FRONTEND=noninteractive
 ENV CORE 8
 
 RUN apt update && apt upgrade -y
+
+RUN apt install -y \
+    build-essential  \
+    cmake \
+    pkg-config  \
+    htop  \
+    gedit  \
+    wget \
+    git \
+    unzip  \
+    curl \
+    vim \
+    software-properties-common \
+    libboost-all-dev \
+    net-tools \
+    iputils-ping \
+    libeigen3-dev \
+	libsuitesparse-dev \
+	libopencv-dev
 
 #install ros dependency
 RUN apt install -y ros-melodic-rtabmap ros-melodic-rtabmap-ros
@@ -17,62 +36,50 @@ RUN apt install -y \
 	libeigen3-dev
 
 #libnabo 
-WORKDIR /root/Libraries
+WORKDIR /opt
 RUN git clone git://github.com/ethz-asl/libnabo.git libnabo
-WORKDIR libnabo/build
+WORKDIR /opt/libnabo/build
 RUN cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 RUN make -j${CORE} && make install
 
 #libpointmatcher
-WORKDIR /root/Libraries
+WORKDIR /opt
 RUN git clone git://github.com/ethz-asl/libpointmatcher.git libpointmatcher
-WORKDIR libpointmatcher/build
+WORKDIR /opt/libpointmatcher/build
 RUN cmake ..
 RUN make -j${CORE} && make install
 
 #gtsam
-WORKDIR /root/Libraries
-RUN git clone https://github.com/borglab/gtsam.git gtsam
-WORKDIR gtsam/build
+WORKDIR /opt
+RUN git clone https://github.com/borglab/gtsam.git -b 4.1 gtsam
+WORKDIR /opt/gtsam/build
 RUN cmake -DGTSAM_BUILD_WITH_MARCH_NATIVE=OFF -DGTSAM_USE_SYSTEM_EIGEN=ON ..
 RUN make -j${CORE} && make install
 
 #g2o
 RUN apt install -y libsuitesparse-dev qtdeclarative5-dev qt5-qmake libqglviewer-dev-qt5
-# WORKDIR /root/Libraries
-# RUN git clone https://github.com/RainerKuemmerle/g2o.git
-# WORKDIR g2o/build
-# RUN cmake -DBUILD_WITH_MARCH_NATIVE=OFF ..
-# RUN make -j8 && make install
 
 #octomap
-# libQGLViewer could not be found or generated. How to solve?
 RUN apt remove ros-melodic-octomap -y
-WORKDIR /root/Libraries
+WORKDIR /opt
 RUN git clone https://github.com/OctoMap/octomap.git 
-WORKDIR octomap/build
-RUN cmake .. && make -j${CORE}
-RUN make install
+WORKDIR /opt/octomap/build
+RUN cmake .. && make -j${CORE} && make install
 
 #rtabmap
 RUN apt install libqt5svg5-dev -y
 WORKDIR /root
 RUN git clone https://github.com/introlab/rtabmap.git rtabmap
-WORKDIR rtabmap/build
-RUN cmake ..
-RUN make -j${CORE} && make install
+WORKDIR /root/rtabmap/build
+RUN cmake .. && make -j${CORE} && make install
 RUN rm /root/rtabmap/build/CMakeCache.txt
 
 #rtabmap-ros
 WORKDIR /root/catkin_ws/src
-RUN git clone https://github.com/hyeonjaegil/rtabmap_ros.git
+RUN git clone https://github.com/introlab/rtabmap_ros.git
 WORKDIR /root/catkin_ws
-# RUN /bin/bash -c '. /opt/ros/melodic/setup.bash'
-# RUN catkin build -j${CORE}
-RUN catkin config \
-      --extend /opt/ros/melodic && \
-    catkin build -j${CORE}
-
+RUN . /opt/ros/melodic/setup.sh && \
+    catkin_make
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo source /opt/ros/melodic/setup.bash >> /root/.bashrc
 RUN echo source /root/catkin_ws/devel/setup.bash >> /root/.bashrc

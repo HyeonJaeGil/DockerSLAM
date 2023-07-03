@@ -4,5 +4,5 @@ docker run --gpus all --rm -it --ipc=host --net=host --privileged \
     --env="DISPLAY" \
     --volume="/etc/localtime:/etc/localtime:ro" \
     --volume="$HOME/Downloads/Dataset:/dataset" \
-    hyeonjaegil/rtabmap 
+    hyeonjaegil/orb-slam2 
 xhost -

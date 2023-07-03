@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build --force-rm -f Dockerfile -t hyeonjaegil/proslam:melodic .
+docker build --force-rm -f Dockerfile -t hyeonjaegil/proslam .
