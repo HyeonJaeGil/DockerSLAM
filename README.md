@@ -6,33 +6,33 @@ Since SLAM consists of various modules, it is quite hard for a beginner to compi
 **This DockerSLAM repository is suitable for SLAM beginners. All you need is to install Docker beforehand!**
 
 ## Supported SLAM algorithm
+#### For convenience, all SLAM algorithms are wrapped with ROS1 support.
 ### LiDAR SLAM
 
 <center>
 
-| LiDAR SLAM | Link to original repository | Link to Docker Hub |
-| :--------: | :-------------------------: | :----------------: |
-| FAST-LIO2  |          FAST-LIO2          |     Docker hub     |
-| LEGO-LOAM  |          LEGO-LOAM          |     Docker hub     |
-|  LIO-SAM   |           LIO-SAM           |     Docker hub     |
+|  LiDAR SLAM   |                     Link to original repository                      | Link to Docker Hub |
+| :-----------: | :------------------------------------------------------------------: | :----------------: |
+| **FAST-LIO2** |        [FAST-LIO2 repository](https://github.com/hku-mars/FAST_LIO.git)         |     Docker hub     |
+| **LEGO-LOAM** | [LEGO-LOAM repository](https://github.com/RobustFieldAutonomyLab/LeGO-LOAM.git) |     Docker hub     |
+|  **LIO-SAM**  |         [LIO-SAM repository](https://github.com/TixiaoShan/LIO-SAM.git)         |     Docker hub     |
 
 </center>
 
 ### Visual SLAM
 <center>
 
-| Visual SLAM | Link to original repository | Link to Docker Hub |
-| :---------: | :-------------------------: | :----------------: |
-|     DSO     |             DSO             |     Docker hub     |
-|  ORB-SLAM2  |          ORB-SLAM2          |     Docker hub     |
-|  VINS-Mono  |          VINS-Mono          |     Docker hub     |
-|   RTABMap   |           RTABMap           |     Docker hub     |
-|   PL-VINS   |           PL-VINS           |     Docker hub     |
-|   PL-VIO    |           PL-VIO            |     Docker hub     |
-|   ProSLAM   |           ProSLAM           |     Docker hub     |
+|  Visual SLAM  |                     Link to original repository                     | Link to Docker Hub |
+| :-----------: | :-----------------------------------------------------------------: | :----------------: |
+|    **DSO**    |            [DSO repository](https://github.com/HyeonJaeGil/dso.git)            |     Docker hub     |
+| **ORB-SLAM2** |      [ORB-SLAM2 repository](https://github.com/HyeonJaeGil/ORB_SLAM2.git)      |     Docker hub     |
+| **VINS-Mono** | [VINS-Mono repository](https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git) |     Docker hub     |
+|  **RTABMap**  |     [RTABMap-ROS repository](https://github.com/introlab/rtabmap_ros.git)      |     Docker hub     |
+|  **PL-VINS**  |        [PL-VINS repository](https://github.com/HyeonJaeGil/PL-VINS.git)        |     Docker hub     |
+|  **PL-VIO**   |           [PL-VIO repository](https://github.com/HeYijia/PL-VIO.git)           |     Docker hub     |
+|  **ProSLAM**  |     [ProSLAM repository](https://gitlab.com/HyeonJaeGil/srrg_proslam.git)      |     Docker hub     |
 
 </center>
-
 
 ## How to use
 ### 0. Install Prerequisite
