@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build  --force-rm -f Dockerfile -t hyeonjaegil/orbslam2:base .
+docker build  --force-rm -f Dockerfile -t hyeonjaegil/orbslam3 .

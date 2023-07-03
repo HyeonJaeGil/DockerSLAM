@@ -1,17 +1,27 @@
-FROM hyeonjaegil/ros:melodic-desktop-full
-ARG DEBIAN_FRONTEND=noninteractive
-ENV core 6
+FROM osrf/ros:melodic-desktop-full
 
-RUN apt update
+ARG DEBIAN_FRONTEND=noninteractive
+ENV core 8
+
+RUN apt update && apt upgrade -y
+
+RUN apt install -y \
+    build-essential  \
+    cmake \
+    pkg-config  \
+    htop  \
+    gedit  \
+    wget \
+    git \
+    unzip  \
+    curl \
+    vim \
+    software-properties-common \
+    libboost-all-dev \
+    net-tools \
+    iputils-ping
 
 #ceres
-# WORKDIR /root
-# RUN git clone https://ceres-solver.googlesource.com/ceres-solver ceres-solver
-# RUN apt install -y cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev
-# WORKDIR /root/ceres-solver/ceres-bin
-# RUN cmake -DCMAKE_CXX_STANDARD=14 ..
-# RUN make -j${core} && make install
-
 WORKDIR /root
 RUN wget https://github.com/ceres-solver/ceres-solver/archive/refs/tags/2.0.0.tar.gz
 RUN tar zxf 2.0.0.tar.gz
@@ -20,7 +30,14 @@ WORKDIR /root/ceres-solver-2.0.0/ceres-bin
 RUN cmake ..
 RUN make -j${core} && make install
 
-#ROS workspace
+# ROS dependencies
+RUN apt install \
+    ros-melodic-cv-bridge \
+    ros-melodic-tf \
+    ros-melodic-message-filters \
+    ros-melodic-image-transport
+
+# VINS-Mono
 RUN apt install -y python-catkin-tools
 WORKDIR /root/catkin_ws/src
 RUN git clone https://github.com/HKUST-Aerial-Robotics/VINS-Mono.git
@@ -30,8 +47,7 @@ RUN . /opt/ros/melodic/setup.sh && \
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo source /opt/ros/melodic/setup.bash >> /root/.bashrc
 RUN echo source /root/catkin_ws/devel/setup.bash >> /root/.bashrc
-
-WORKDIR /root
+WORKDIR /root/catkin_ws
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES \
@@ -39,3 +55,4 @@ ENV NVIDIA_VISIBLE_DEVICES \
 ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
+ENTRYPOINT [ "/bin/bash" ]

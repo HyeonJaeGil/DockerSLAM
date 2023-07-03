@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build --force-rm -f Dockerfile -t hyeonjaegil/plvins:melodic .
+docker build --force-rm -f Dockerfile -t hyeonjaegil/pl-vins .

@@ -1,3 +1,3 @@
 #! /bin/sh
 
-docker build --force-rm -f Dockerfile -t hyeonjaegil/vins-mono:melodic .
+docker build --force-rm -f Dockerfile -t hyeonjaegil/vins-mono .
