@@ -14,5 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Checkout repository
+
+    - name: Build and push Docker images
+      run: | 
+        for dir in $(find ./LiDAR-SLAM -mindepth 1 -maxdepth 1 -type d); do
+          dir=${dir##*/}
+          echo "Building image: $dir"
+          docker build . --file ./LiDAR-SLAM/$dir/Dockerfile --tag hyeonjaegil/$dir:latest
+        done
