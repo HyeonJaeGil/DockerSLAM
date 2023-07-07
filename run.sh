@@ -1,9 +1,15 @@
 #! /bin/sh
-docker_image=$1
+IMAGE_NAME=$1
+
+# check if docker_image is empty
+if [ -z "$IMAGE_NAME" ]; then
+    echo "Please specify docker image name."
+    exit 1
+fi
 
 # check if docker image exists
-if [ "$(docker images -q ${docker_image} 2> /dev/null)" == "" ]; then
-    echo "Docker image ${docker_image} does not exist. Build it first."
+if [ -z "$(docker images -q "$IMAGE_NAME")" ]; then
+    echo "Docker image ${IMAGE_NAME} does not exist. Build it first."
     exit 1
 fi
 
@@ -13,5 +19,5 @@ docker run --gpus all --rm -it --ipc=host --net=host --privileged \
     --env="DISPLAY" \
     --volume="/etc/localtime:/etc/localtime:ro" \
     --volume="$HOME/Downloads/Dataset:/dataset" \
-    ${docker_image}
+    ${IMAGE_NAME}
 xhost -
