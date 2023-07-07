@@ -1,1 +1,0 @@
-nvidia-docker run --gpus all --rm -it --ipc=host --name simclr_cuda113 hyeonjaegil/simclr:cuda113 bash
